@@ -57,6 +57,7 @@
                 updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
                 authorizeButton.onclick = handleAuthClick;
                 signoutButton.onclick = handleSignoutClick;
+                createEventButton.onclick = handleCreateEventClick;
             }, function(error) {
                 appendPre(JSON.stringify(error, null, 2));
             });
@@ -91,6 +92,41 @@
          */
         function handleSignoutClick(event) {
             gapi.auth2.getAuthInstance().signOut();
+        }
+
+        function handleCreateEventClick(event) {
+            var e = {
+                'summary': 'Google I/O 2015',
+                'location': '800 Howard St., San Francisco, CA 94103',
+                'description': 'A chance to hear more about Google\'s developer products.',
+                'start': {
+                    'date': '2020-05-21',
+                    'timeZone': 'America/Los_Angeles'
+                },
+                'end': {
+                    'date': '2020-05-21',
+                    'timeZone': 'America/Los_Angeles'
+                },
+                'recurrence': [
+                    'RRULE:FREQ=DAILY;COUNT=2'
+                ],
+                'attendees': [{
+                    'email': 'lpage@example.com'
+                }, {
+                    'email': 'sbrin@example.com'
+                }]
+            };
+
+            var request = gapi.client.calendar.events.insert({
+                'calendarId': 'primary',
+                'resource': e
+            });
+
+            request.execute(function(event) {
+                appendPre('Event created: ' + event.htmlLink);
+            });
+
+
         }
 
         /**
