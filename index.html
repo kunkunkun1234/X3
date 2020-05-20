@@ -10,6 +10,7 @@
     <p>Google Calendar API Quickstart</p>
 
     <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="create_event_button" style="display: none;">Create Events</button>
     <button id="authorize_button" style="display: none;">Authorize</button>
     <button id="signout_button" style="display: none;">Sign Out</button>
 
@@ -29,6 +30,7 @@
 
         var authorizeButton = document.getElementById('authorize_button');
         var signoutButton = document.getElementById('signout_button');
+        var createEventButton = document.getElementById('create_event_button');
 
         /**
          *  On load, called to load the auth2 library and API client library.
@@ -68,10 +70,12 @@
             if (isSignedIn) {
                 authorizeButton.style.display = 'none';
                 signoutButton.style.display = 'block';
+                createEventButton.style.display = 'block';
                 listUpcomingEvents();
             } else {
                 authorizeButton.style.display = 'block';
                 signoutButton.style.display = 'none';
+                createEventButton.style.display = 'none';
             }
         }
 
